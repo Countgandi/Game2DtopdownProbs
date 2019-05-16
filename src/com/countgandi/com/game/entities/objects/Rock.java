@@ -4,9 +4,8 @@ import java.awt.Graphics;
 
 import com.countgandi.com.Assets;
 import com.countgandi.com.game.Handler;
-import com.countgandi.com.game.entities.Entity;
 
-public class Rock extends Entity {
+public class Rock extends Foilage {
 
 	public Rock(float x, float y, Handler handler) {
 		super(x, y, handler);

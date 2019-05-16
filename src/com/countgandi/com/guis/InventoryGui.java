@@ -13,7 +13,7 @@ import com.countgandi.com.game.items.Item;
 
 public class InventoryGui extends Gui {
 
-	private static final int row = 4, column = 5;
+	private static final int row = 3, column = 4;
 	public static Item[] inventory = new Item[row * column];
 	public static Rectangle[] inventoryBounds = new Rectangle[row * column];
 
@@ -24,7 +24,7 @@ public class InventoryGui extends Gui {
 
 		for (int y = 0; y < row; y++) {
 			for (int x = 0; x < column; x++) {
-				inventoryBounds[y * column + x] = new Rectangle(170 * Handler.ZOOM + x * 22 * Handler.ZOOM, 46 * Handler.ZOOM + y * 24 * Handler.ZOOM, 16 * Handler.ZOOM, 16 * Handler.ZOOM);
+				inventoryBounds[y * column + x] = new Rectangle(85 * Handler.ZOOM + x * 14 * Handler.ZOOM, 27 * Handler.ZOOM + y * 14 * Handler.ZOOM, 8 * Handler.ZOOM, 8 * Handler.ZOOM);
 			}
 		}
 
@@ -60,13 +60,13 @@ public class InventoryGui extends Gui {
 		for (int y = 0; y < row; y++) {
 			for (int x = 0; x < column; x++) {
 				if (inventory[y * column + x] != null) {
-					g.drawImage(inventory[y * column + x].getIcon(), x * 22 * Handler.ZOOM + 170 * Handler.ZOOM, y * 24 * Handler.ZOOM + 46 * Handler.ZOOM, 16 * Handler.ZOOM, 16 * Handler.ZOOM, null);
+					g.drawImage(inventory[y * column + x].getIcon(), x * 14 * Handler.ZOOM + 85 * Handler.ZOOM, y * 14 * Handler.ZOOM + 27 * Handler.ZOOM, 8 * Handler.ZOOM, 8 * Handler.ZOOM, null);
 				}
 			}
 		}
 
 		if (holdingThing) {
-			g.drawImage(holdingItem, (int) holdingPoint.getX(), (int) holdingPoint.getY(), 16 * Handler.ZOOM, 16 * Handler.ZOOM, null);
+			g.drawImage(holdingItem, (int) holdingPoint.getX(), (int) holdingPoint.getY(), 8 * Handler.ZOOM, 8 * Handler.ZOOM, null);
 		}
 		
 	}

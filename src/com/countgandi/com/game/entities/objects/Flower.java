@@ -1,29 +1,22 @@
-package com.countgandi.com.game.entities;
+package com.countgandi.com.game.entities.objects;
 
 import java.awt.Graphics;
-import java.util.Random;
 
 import com.countgandi.com.Assets;
 import com.countgandi.com.game.Handler;
-import com.countgandi.com.game.entities.creatures.Shriel;
-import com.countgandi.com.game.entities.creatures.Vause;
 import com.countgandi.com.game.map.MapHandler;
 
-public class Flower extends Entity {
+public class Flower extends Foilage {
 
 	public Flower(float x, float y, Handler handler) {
 		super(x, y, handler);
 		width = 8;
 		height = 8;
-		for(int i = 0; i < handler.entities.size(); i++) {
-			if(handler.entities.get(i).getRectangle().intersects(this.getRectangle())) {
-				handler.removeEntity(this);
-			}
-		}
 	}
 
 	@Override
 	public void tick() {
+		
 	}
 
 	@Override

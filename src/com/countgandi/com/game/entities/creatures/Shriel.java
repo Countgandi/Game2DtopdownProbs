@@ -8,7 +8,7 @@ import com.countgandi.com.game.Handler;
 import com.countgandi.com.game.entities.Entity;
 import com.countgandi.com.game.renders.Animation;
 
-public class Shriel extends Entity {
+public class Shriel extends Creature {
 	
 	private static Random ran = new Random();
 	private Animation walk;
@@ -22,7 +22,7 @@ public class Shriel extends Entity {
 	}
 
 	@Override
-	public void tick() {
+	public void etick() {
 		x += velX;
 		y += velY;
 		if (velX < 0) {

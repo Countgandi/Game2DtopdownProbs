@@ -1,4 +1,4 @@
-package com.countgandi.com.game.entities;
+package com.countgandi.com.game.entities.objects;
 
 import java.awt.Graphics;
 

@@ -73,4 +73,8 @@ public abstract class Entity {
 		this.height = height;
 	}
 
+	public boolean spawnIn() {
+		return true;
+	}
+
 }

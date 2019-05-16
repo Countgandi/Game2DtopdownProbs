@@ -3,13 +3,11 @@ package com.countgandi.com.game.map;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
-import java.util.Random;
 
 import com.countgandi.com.Assets;
 import com.countgandi.com.Game;
 import com.countgandi.com.game.Camera;
 import com.countgandi.com.game.Handler;
-import com.countgandi.com.game.entities.PalmTree;
 
 public class MapHandler {
 
@@ -82,12 +80,6 @@ public class MapHandler {
 		} else if (color == 0xFF6A6469) {
 			// Sand
 			tile = (new Tile(x, y, 4));
-			if (withPlayer) {
-				Random ran = new Random();
-				if(ran.nextInt(100) == 1) {
-					handler.entities.add(new PalmTree(tile.rectangle.x, tile.rectangle.y, handler));
-				}
-			}
 		} else if (color == 0xFF9F6FFE) {
 			// grass top left corner
 			tile = (new GrassTile(x, y, 16));
