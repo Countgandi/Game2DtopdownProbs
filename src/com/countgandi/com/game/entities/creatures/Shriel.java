@@ -5,7 +5,6 @@ import java.util.Random;
 
 import com.countgandi.com.Assets;
 import com.countgandi.com.game.Handler;
-import com.countgandi.com.game.entities.Entity;
 import com.countgandi.com.game.renders.Animation;
 
 public class Shriel extends Creature {

@@ -28,7 +28,7 @@ public class InventoryGui extends Gui {
 			}
 		}
 
-		addItem(new Item(Assets.items[0], handler) {
+		addItem(new Item(Assets.items[0], this.handler) {
 			@Override
 			public void renderInUse(Graphics g) {
 
@@ -39,7 +39,7 @@ public class InventoryGui extends Gui {
 
 			}
 		});
-		addItem(new Item(Assets.items[1], handler) {
+		addItem(new Item(Assets.items[1], this.handler) {
 			@Override
 			public void renderInUse(Graphics g) {
 
