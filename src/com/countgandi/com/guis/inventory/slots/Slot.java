@@ -1,4 +1,4 @@
-package com.countgandi.com.guis.inventory;
+package com.countgandi.com.guis.inventory.slots;
 
 import java.awt.Rectangle;
 

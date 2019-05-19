@@ -12,7 +12,9 @@ import com.countgandi.com.Assets;
 import com.countgandi.com.Game;
 import com.countgandi.com.game.Handler;
 import com.countgandi.com.game.items.Item;
+import com.countgandi.com.game.items.trinkets.ItemTrinket;
 import com.countgandi.com.guis.Gui;
+import com.countgandi.com.guis.inventory.slots.Slot;
 
 public abstract class InventoryGui extends Gui {
 
@@ -24,7 +26,7 @@ public abstract class InventoryGui extends Gui {
 		if (inventorySlots == null) {
 			initInventory();
 		}
-		addItem(new Item(Assets.items[0], handler) {
+		addItem(new ItemTrinket(Assets.items[0], handler) {
 
 			@Override
 			public void renderInUse(Graphics g) {
@@ -36,6 +38,19 @@ public abstract class InventoryGui extends Gui {
 
 			}
 
+		});
+		addItem(new Item(Assets.items[1], handler) {
+			
+			@Override
+			public void renderInUse(Graphics g) {
+				
+			}
+			
+			@Override
+			public void onUse() {
+				
+			}
+			
 		});
 	}
 
@@ -147,7 +162,7 @@ public abstract class InventoryGui extends Gui {
 		Item s1item = inventory[slot1];
 		Item s2item = inventory[slot2];
 		if (inventorySlots.get(slot2).meetsRequirements(s1item) && inventorySlots.get(slot1).meetsRequirements(s2item)) {
-			inventory[slot1] = inventory[slot2];
+			inventory[slot1] = s2item;
 			inventory[slot2] = s1item;
 			return true;
 		}
