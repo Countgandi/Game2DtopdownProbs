@@ -18,7 +18,7 @@ public class Assets {
 	public static BufferedImage rock1 = loadImage("/entities/objects/rocks/rock1.png");
 	
 	
-	public static BufferedImage inventoryGui = loadImage("/guis/inventory.png");
+	public static BufferedImage inventoryGui = loadImage("/guis/inventorywithcharacter.png");
 	
 	public static BufferedImage loadImage(String path) {
 		try {

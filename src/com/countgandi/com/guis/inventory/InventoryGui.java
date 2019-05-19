@@ -1,34 +1,31 @@
-package com.countgandi.com.guis;
+package com.countgandi.com.guis.inventory;
 
 import java.awt.Graphics;
 import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.countgandi.com.Assets;
 import com.countgandi.com.Game;
 import com.countgandi.com.game.Handler;
 import com.countgandi.com.game.items.Item;
+import com.countgandi.com.guis.Gui;
 
-public class InventoryGui extends Gui {
+public abstract class InventoryGui extends Gui {
 
-	private static final int row = 3, column = 4;
+	protected static final int row = 3, column = 4;
 	public static Item[] inventory = new Item[row * column];
-	public static Rectangle[] inventoryBounds = new Rectangle[row * column];
-
-	private Handler handler;
+	public static List<Slot> inventorySlots;
 
 	public InventoryGui(Handler handler) {
-		this.handler = handler;
-
-		for (int y = 0; y < row; y++) {
-			for (int x = 0; x < column; x++) {
-				inventoryBounds[y * column + x] = new Rectangle(85 * Handler.ZOOM + x * 14 * Handler.ZOOM, 27 * Handler.ZOOM + y * 14 * Handler.ZOOM, 8 * Handler.ZOOM, 8 * Handler.ZOOM);
-			}
+		if (inventorySlots == null) {
+			initInventory();
 		}
+		addItem(new Item(Assets.items[0], handler) {
 
-		addItem(new Item(Assets.items[0], this.handler) {
 			@Override
 			public void renderInUse(Graphics g) {
 
@@ -38,38 +35,26 @@ public class InventoryGui extends Gui {
 			public void onUse() {
 
 			}
-		});
-		addItem(new Item(Assets.items[1], this.handler) {
-			@Override
-			public void renderInUse(Graphics g) {
 
-			}
-
-			@Override
-			public void onUse() {
-
-			}
 		});
 	}
 
 	@Override
 	public void render(Graphics g) {
-		g.drawImage(Assets.inventoryGui, 0, 0, Assets.inventoryGui.getWidth() * Handler.ZOOM, Assets.inventoryGui.getHeight() * Handler.ZOOM, null);
-		
-		
-		for (int y = 0; y < row; y++) {
-			for (int x = 0; x < column; x++) {
-				if (inventory[y * column + x] != null) {
-					g.drawImage(inventory[y * column + x].getIcon(), x * 14 * Handler.ZOOM + 85 * Handler.ZOOM, y * 14 * Handler.ZOOM + 27 * Handler.ZOOM, 8 * Handler.ZOOM, 8 * Handler.ZOOM, null);
-				}
+		renderChild(g);
+		for (int i = 0; i < inventorySlots.size(); i++) {
+			if (inventory[i] != null) {
+				g.drawImage(inventory[i].getIcon(), (int) inventorySlots.get(i).getRectangle().getX(), (int) inventorySlots.get(i).getRectangle().getY(), (int) inventorySlots.get(i).getRectangle().getWidth(), (int) inventorySlots.get(i).getRectangle().getHeight(), null);
 			}
 		}
 
 		if (holdingThing) {
 			g.drawImage(holdingItem, (int) holdingPoint.getX(), (int) holdingPoint.getY(), 8 * Handler.ZOOM, 8 * Handler.ZOOM, null);
 		}
-		
+
 	}
+
+	protected abstract void renderChild(Graphics g);
 
 	@Override
 	public void tick() {
@@ -119,8 +104,8 @@ public class InventoryGui extends Gui {
 	}
 
 	public int slotFromPoint(Point p) {
-		for (int i = 0; i < inventoryBounds.length; i++) {
-			if (inventoryBounds[i].contains(p)) {
+		for (int i = 0; i < inventorySlots.size(); i++) {
+			if (inventorySlots.get(i).getRectangle().contains(p)) {
 				return i;
 			}
 		}
@@ -158,10 +143,56 @@ public class InventoryGui extends Gui {
 		}
 	}
 
-	public void moveItem(int slot1, int slot2) {
+	public boolean moveItem(int slot1, int slot2) {
 		Item s1item = inventory[slot1];
-		inventory[slot1] = inventory[slot2];
-		inventory[slot2] = s1item;
+		Item s2item = inventory[slot2];
+		if (inventorySlots.get(slot2).meetsRequirements(s1item) && inventorySlots.get(slot1).meetsRequirements(s2item)) {
+			inventory[slot1] = inventory[slot2];
+			inventory[slot2] = s1item;
+			return true;
+		}
+		return false;
+	}
+
+	public abstract void closeInventory();
+
+	public void close() {
+		closeInventory();
+		inventorySlots = (List<Slot>) inventorySlots.subList(0, row * column);
+		Item[] items = new Item[row * column];
+		for (int i = 0; i < items.length; i++) {
+			items[i] = inventory[i];
+		}
+		inventory = items;
+	}
+
+	public ArrayList<Item> returnItemsPastInvetoryCapacity() {
+		ArrayList<Item> items = new ArrayList<Item>();
+		int capacity = row * column;
+		for (int i = capacity; i < inventory.length; i++) {
+			items.add(inventory[i]);
+		}
+		return items;
+	}
+
+	protected void addMoreInvetorySpace(Item[] items) {
+		Item[] nitems = new Item[inventory.length + items.length];
+		for (int i = 0; i < inventory.length; i++) {
+			nitems[i] = inventory[i];
+		}
+		for (int i = 0; i < items.length; i++) {
+			nitems[inventory.length + i] = items[i];
+		}
+		inventory = nitems;
+	}
+
+	private void initInventory() {
+		inventorySlots = new ArrayList<Slot>();
+		for (int y = 0; y < row; y++) {
+			for (int x = 0; x < column; x++) {
+				inventorySlots.add(new Slot(new Rectangle(85 + x * 14, 27 + y * 14)));
+			}
+		}
 	}
 
 }

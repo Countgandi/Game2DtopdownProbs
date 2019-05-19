@@ -6,7 +6,8 @@ import java.awt.event.MouseEvent;
 
 import com.countgandi.com.game.Handler;
 import com.countgandi.com.game.SpawnManager;
-import com.countgandi.com.guis.InventoryGui;
+import com.countgandi.com.guis.inventory.DefaultInventoryGui;
+import com.countgandi.com.guis.inventory.InventoryGui;
 
 public class GameMenu implements Menu {
 
@@ -14,10 +15,7 @@ public class GameMenu implements Menu {
 	private Handler handler;
 	private SpawnManager manager;
 
-	private boolean inventoryOpen = false;
-
 	public GameMenu() {
-		inventory = new InventoryGui(handler);
 		handler = new Handler();
 		manager = new SpawnManager(handler);
 		manager.spawnWorld();
@@ -25,7 +23,7 @@ public class GameMenu implements Menu {
 
 	@Override
 	public void tick() {
-		if (inventoryOpen) {
+		if (inventory != null) {
 			inventory.tick();
 		} else {
 			handler.tick();
@@ -35,28 +33,28 @@ public class GameMenu implements Menu {
 	@Override
 	public void render(Graphics g) {
 		handler.render(g);
-		if (inventoryOpen) {
+		if (inventory != null) {
 			inventory.render(g);
 		}
 	}
 
 	@Override
 	public void mouseMoved(MouseEvent e) {
-		if (inventoryOpen) {
+		if (inventory != null) {
 			inventory.mouseMoved(e);
 		}
 	}
 
 	@Override
 	public void mousePressed(MouseEvent e) {
-		if (inventoryOpen) {
+		if (inventory != null) {
 			inventory.mousePressed(e);
 		}
 	}
 
 	@Override
 	public void mouseReleased(MouseEvent e) {
-		if (inventoryOpen) {
+		if (inventory != null) {
 			inventory.mouseReleased(e);
 		}
 	}
@@ -101,15 +99,28 @@ public class GameMenu implements Menu {
 		}
 
 		if (key == KeyEvent.VK_E) {
-			inventoryOpen = !inventoryOpen;
+			if(inventory != null) {
+				closeCurrentInventory();
+			} else {
+				openInventory(new DefaultInventoryGui(handler));
+			}
 		}
 	}
 
 	@Override
 	public void mouseDragged(MouseEvent e) {
-		if (inventoryOpen) {
+		if (inventory != null) {
 			inventory.mouseDragged(e);
 		}
+	}
+	
+	public void closeCurrentInventory() {
+		this.inventory.close();
+		this.inventory = null;
+	}
+	
+	public void openInventory(InventoryGui inventory) {
+		this.inventory = inventory;
 	}
 
 }
