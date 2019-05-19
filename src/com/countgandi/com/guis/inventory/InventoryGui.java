@@ -1,5 +1,6 @@
 package com.countgandi.com.guis.inventory;
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Point;
 import java.awt.Rectangle;
@@ -8,16 +9,17 @@ import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.countgandi.com.Assets;
 import com.countgandi.com.Game;
 import com.countgandi.com.game.Handler;
 import com.countgandi.com.game.items.Item;
-import com.countgandi.com.game.items.trinkets.ItemTrinket;
+import com.countgandi.com.game.items.armor.boots.ItemIronBoots;
+import com.countgandi.com.game.items.trinkets.ItemTrinketSpeedRing;
 import com.countgandi.com.guis.Gui;
 import com.countgandi.com.guis.inventory.slots.Slot;
 
 public abstract class InventoryGui extends Gui {
 
+	private static Color inventoryGray = new Color(0xFF494949);
 	protected static final int row = 3, column = 4;
 	public static Item[] inventory = new Item[row * column];
 	public static List<Slot> inventorySlots;
@@ -26,45 +28,24 @@ public abstract class InventoryGui extends Gui {
 		if (inventorySlots == null) {
 			initInventory();
 		}
-		addItem(new ItemTrinket(Assets.items[0], handler) {
-
-			@Override
-			public void renderInUse(Graphics g) {
-
-			}
-
-			@Override
-			public void onUse() {
-
-			}
-
-		});
-		addItem(new Item(Assets.items[1], handler) {
-			
-			@Override
-			public void renderInUse(Graphics g) {
-				
-			}
-			
-			@Override
-			public void onUse() {
-				
-			}
-			
-		});
+		
+		addItem(new ItemIronBoots(handler));
+		addItem(new ItemTrinketSpeedRing(handler));
 	}
 
 	@Override
 	public void render(Graphics g) {
 		renderChild(g);
+		g.setColor(inventoryGray);
 		for (int i = 0; i < inventorySlots.size(); i++) {
 			if (inventory[i] != null) {
+				g.fillRect((int) inventorySlots.get(i).getRectangle().getX(), (int) inventorySlots.get(i).getRectangle().getY(), (int) inventorySlots.get(i).getRectangle().getWidth(), (int) inventorySlots.get(i).getRectangle().getHeight());
 				g.drawImage(inventory[i].getIcon(), (int) inventorySlots.get(i).getRectangle().getX(), (int) inventorySlots.get(i).getRectangle().getY(), (int) inventorySlots.get(i).getRectangle().getWidth(), (int) inventorySlots.get(i).getRectangle().getHeight(), null);
 			}
 		}
 
 		if (holdingThing) {
-			g.drawImage(holdingItem, (int) holdingPoint.getX(), (int) holdingPoint.getY(), 8 * Handler.ZOOM, 8 * Handler.ZOOM, null);
+			g.drawImage(holdingItem, (int) holdingPoint.getX() - 4 * Handler.ZOOM, (int) holdingPoint.getY() - 4 * Handler.ZOOM, 8 * Handler.ZOOM, 8 * Handler.ZOOM, null);
 		}
 
 	}

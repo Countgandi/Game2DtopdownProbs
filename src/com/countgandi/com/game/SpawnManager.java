@@ -22,8 +22,8 @@ public class SpawnManager {
 	private static float chanceEntitiesPerBlock = 0.1f;
 	private static ArrayList<Class<? extends Entity>> registeredEntitiesGrass = new ArrayList<Class<? extends Entity>>();
 	private static ArrayList<Class<? extends Entity>> registeredEntitiesSand = new ArrayList<Class<? extends Entity>>();
-	private static ArrayList<Class<? extends Entity>> registeredEntitiesDeepOcean = new ArrayList<Class<? extends Entity>>();
-	private static ArrayList<Class<? extends Entity>> registeredEntitiesShallowOcean = new ArrayList<Class<? extends Entity>>();
+	//private static ArrayList<Class<? extends Entity>> registeredEntitiesDeepOcean = new ArrayList<Class<? extends Entity>>();
+	//private static ArrayList<Class<? extends Entity>> registeredEntitiesShallowOcean = new ArrayList<Class<? extends Entity>>();
 	private Handler handler;
 
 	public SpawnManager(Handler handler) {
