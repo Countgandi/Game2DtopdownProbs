@@ -1,8 +1,9 @@
-package com.countgandi.com.game.items.armor;
+package com.countgandi.com.game.items.armor.boots;
 
 import java.awt.image.BufferedImage;
 
 import com.countgandi.com.game.Handler;
+import com.countgandi.com.game.items.armor.ItemArmor;
 import com.countgandi.com.game.items.materials.Material;
 
 public class ItemBoot extends ItemArmor {

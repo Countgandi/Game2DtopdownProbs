@@ -1,4 +1,4 @@
-package com.countgandi.com.game.items.weapons.swords;
+package com.countgandi.com.game.items.weapons.bows;
 
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
@@ -6,9 +6,9 @@ import java.awt.image.BufferedImage;
 import com.countgandi.com.game.Handler;
 import com.countgandi.com.game.items.weapons.ItemWeapon;
 
-public class ItemSword extends ItemWeapon {
+public class ItemBow extends ItemWeapon {
 
-	public ItemSword(BufferedImage icon, Handler handler) {
+	public ItemBow(BufferedImage icon, Handler handler) {
 		super(icon, handler);
 	}
 
