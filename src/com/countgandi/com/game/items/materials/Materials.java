@@ -15,9 +15,10 @@ public class Materials {
 	public static final Material diamond = new Material("diamond", 10, 6);
 	
 	// magic materials
-	public static final Material swampstone = new Material("swampstone", 14, 6);
 	public static final Material bloodstone = new Material("bloodstone", 11, 6);
 	public static final Material moonstone = new Material("moonstone", 12, 6);
 	public static final Material sunstone = new Material("sunstone", 13, 6);
+	public static final Material swampstone = new Material("swampstone", 14, 6);
+
 
 }

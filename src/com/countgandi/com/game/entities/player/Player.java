@@ -26,7 +26,7 @@ public class Player extends Entity {
 		height = 8;
 		Camera.x = x - (width * Handler.ZOOM / 2) - Game.WIDTH / 2;
 		Camera.y = y - (height * Handler.ZOOM / 2) - Game.HEIGHT / 2;
-		type = new MartialArtsType(handler);
+		type = new KnightType(handler);
 	}
 
 	@Override

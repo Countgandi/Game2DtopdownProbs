@@ -13,8 +13,10 @@ public class Assets {
 	public static BufferedImage[] flower1 = loadImageSheet(8, 8, "/entities/objects/foilage/flower1.png");
 	public static BufferedImage[] vause = loadImageSheet(8, 8, "/entities/creatures/vause.png");
 	public static BufferedImage[] shriel = loadImageSheet(8, 8, "/entities/creatures/shriel.png");
-	public static BufferedImage tree1 = loadImage("/entities/objects/trees/tree3.png");
-	public static BufferedImage tree2 = loadImage("/entities/objects/trees/tree6.png");
+	
+	public static BufferedImage[] palmTree = loadImageSheet(32, 32, "/entities/objects/trees/palmtree.png");
+	public static BufferedImage[] oakTree = loadImageSheet(32, 32, "/entities/objects/trees/oaktree.png");
+	
 	public static BufferedImage rock1 = loadImage("/entities/objects/rocks/rock1.png");
 	
 	

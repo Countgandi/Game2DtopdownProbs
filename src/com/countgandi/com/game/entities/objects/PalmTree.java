@@ -13,7 +13,7 @@ public class PalmTree extends Tree {
 	
 	@Override
 	public void render(Graphics g) {
-		g.drawImage(Assets.tree2, (int)x, (int)y, width * Handler.ZOOM, height * Handler.ZOOM, null);
+		g.drawImage(Assets.palmTree[4 + (int)timer], (int)x, (int)y, width * Handler.ZOOM, height * Handler.ZOOM, null);
 	}
 
 }

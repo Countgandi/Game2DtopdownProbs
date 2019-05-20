@@ -8,9 +8,9 @@ import com.countgandi.com.game.entities.Entity;
 import com.countgandi.com.game.entities.creatures.Shriel;
 import com.countgandi.com.game.entities.creatures.Vause;
 import com.countgandi.com.game.entities.objects.Flower;
+import com.countgandi.com.game.entities.objects.OakTree;
 import com.countgandi.com.game.entities.objects.PalmTree;
 import com.countgandi.com.game.entities.objects.Rock;
-import com.countgandi.com.game.entities.objects.SwampTree;
 import com.countgandi.com.game.map.GrassTile;
 import com.countgandi.com.game.map.MapHandler;
 import com.countgandi.com.game.map.Tile;
@@ -80,9 +80,9 @@ public class SpawnManager {
 		// Grass Biome
 		registeredEntitiesGrass.add(Vause.class);
 
-		registeredEntitiesGrass.add(SwampTree.class);
-		registeredEntitiesGrass.add(SwampTree.class);
-		registeredEntitiesGrass.add(SwampTree.class);
+		registeredEntitiesGrass.add(OakTree.class);
+		registeredEntitiesGrass.add(OakTree.class);
+		registeredEntitiesGrass.add(OakTree.class);
 
 		registeredEntitiesGrass.add(Flower.class);
 		registeredEntitiesGrass.add(Flower.class);
