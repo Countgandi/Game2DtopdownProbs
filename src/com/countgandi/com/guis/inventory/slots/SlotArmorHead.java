@@ -3,7 +3,7 @@ package com.countgandi.com.guis.inventory.slots;
 import java.awt.Rectangle;
 
 import com.countgandi.com.game.items.Item;
-import com.countgandi.com.game.items.armor.headpiece.ItemHeadpiece;
+import com.countgandi.com.game.items.armor.headpiece.ItemHelmet;
 
 public class SlotArmorHead extends Slot {
 
@@ -12,7 +12,7 @@ public class SlotArmorHead extends Slot {
 	}
 	
 	public boolean meetsRequirements(Item item) {
-		if(item instanceof ItemHeadpiece || item == null) {
+		if(item instanceof ItemHelmet || item == null) {
 			return true;
 		}
 		return false;

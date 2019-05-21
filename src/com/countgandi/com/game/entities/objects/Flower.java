@@ -16,12 +16,15 @@ public class Flower extends Foilage {
 
 	@Override
 	public void tick() {
+		tt += 0.05;
 		
+		tt %= 4;
 	}
+	private float tt;
 
 	@Override
 	public void render(Graphics g) {
-		g.drawImage(Assets.flower1[(int) ((MapHandler.tileTick % 40) / 10.0f)], (int) x, (int) y, width * Handler.ZOOM, height * Handler.ZOOM, null);
+		g.drawImage(Assets.flower1[(int) tt], (int) x, (int) y, width * Handler.ZOOM, height * Handler.ZOOM, null);
 	}
 
 }

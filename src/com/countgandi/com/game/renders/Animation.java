@@ -38,5 +38,13 @@ public class Animation {
 	public int getFrameNumber() {
 		return offset + frame;
 	}
+	
+	public int getSize() {
+		return imgs.length;
+	}
+	
+	public int getTicksPerFrame() {
+		return this.ticksPerFrame;
+	}
 
 }

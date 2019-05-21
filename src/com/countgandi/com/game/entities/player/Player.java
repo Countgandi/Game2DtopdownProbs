@@ -7,18 +7,28 @@ import com.countgandi.com.Game;
 import com.countgandi.com.game.Camera;
 import com.countgandi.com.game.Handler;
 import com.countgandi.com.game.entities.Entity;
-import com.countgandi.com.game.items.Item;
+import com.countgandi.com.game.items.armor.boots.ItemIronBoots;
+import com.countgandi.com.game.items.armor.chestplates.ItemIronChestplate;
+import com.countgandi.com.game.items.armor.headpiece.ItemIronHelmet;
+import com.countgandi.com.game.items.armor.leggings.ItemIronLegging;
+import com.countgandi.com.game.items.tools.ItemTool;
+import com.countgandi.com.game.items.tools.axes.ItemAxe;
+import com.countgandi.com.game.items.tools.hoes.ItemHoe;
+import com.countgandi.com.game.items.tools.maces.ItemMace;
+import com.countgandi.com.game.items.tools.picks.ItemPickaxe;
+import com.countgandi.com.game.items.tools.swords.ItemSword;
+import com.countgandi.com.game.items.trinkets.ItemTrinketSpeedRing;
 import com.countgandi.com.game.map.MapHandler;
 import com.countgandi.com.game.map.Tile;
 import com.countgandi.com.game.map.WaterTile;
+import com.countgandi.com.guis.inventory.InventoryGui;
 
 public class Player extends Entity {
 
-	public boolean up, down, left, right, moving, movingud, startAttack, attacking, inWater;
+	public static ItemTool itemInHand;
+	public boolean up, down, left, right, moving, movingud, startUsingItem, usingItem, inWater;
 	private float speed = 4f;
 	private int animNum, animation, animTimer, attackTimer;
-	public Item inHand;
-	private PlayerType type;
 
 	public Player(float x, float y, Handler handler) {
 		super(x, y, handler);
@@ -26,31 +36,42 @@ public class Player extends Entity {
 		height = 8;
 		Camera.x = x - (width * Handler.ZOOM / 2) - Game.WIDTH / 2;
 		Camera.y = y - (height * Handler.ZOOM / 2) - Game.HEIGHT / 2;
-		type = new KnightType(handler);
+		
+		InventoryGui.addItem(new ItemIronBoots(handler));
+		InventoryGui.addItem(new ItemIronLegging(handler));
+		InventoryGui.addItem(new ItemIronChestplate(handler));
+		InventoryGui.addItem(new ItemIronHelmet(handler));
+		InventoryGui.addItem(new ItemTrinketSpeedRing(handler));
+		InventoryGui.addItem(new ItemSword(handler));
+		InventoryGui.addItem(new ItemMace(handler));
+		InventoryGui.addItem(new ItemPickaxe(handler));
+		InventoryGui.addItem(new ItemAxe(handler));
+		InventoryGui.addItem(new ItemHoe(handler));
 	}
 
 	@Override
 	public void tick() {
 		x += velX;
 		y += velY;
-		if (inWater) {
-			startAttack = false;
+		if (inWater || itemInHand == null) {
+			startUsingItem = false;
 		}
-		if (startAttack) {
-			attacking = true;
+		if (startUsingItem) {
+			usingItem = true;
 			animTimer = 0;
 			animNum = 0;
 			attackTimer = 0;
-			startAttack = false;
+			startUsingItem = false;
 		}
 
-		if (attacking) {
+		if (usingItem) {
 			velY = 0;
 			velX = 0;
 			attackTimer++;
-			type.useItem(attackTimer, this);
-			if (attackTimer >= 20) {
-				attacking = false;
+			itemInHand.getAnimation().tick(animation * (itemInHand.getAnimation().getSize() / 2));
+			if (attackTimer >= (itemInHand.getAnimation().getSize() / 2) * itemInHand.getAnimation().getTicksPerFrame()) {
+				itemInHand.onUse();
+				usingItem = false;
 				attackTimer = 0;
 			}
 		} else {
@@ -105,6 +126,7 @@ public class Player extends Entity {
 	}
 
 	int t = 0;
+
 	public void checkIntersection(Tile tile) {
 		if (tile.getRectangle().intersects(getRectangle())) {
 			if (tile instanceof WaterTile) {
@@ -115,12 +137,18 @@ public class Player extends Entity {
 
 	@Override
 	public void render(Graphics g) {
-		if (attacking) {
-			g.drawImage(Assets.player[type.getSpriteOffset() + 4 + animation * 2 + attackTimer / 10], (int) x, (int) y, width * Handler.ZOOM, height * Handler.ZOOM, null);
+		if (usingItem) {
+			g.drawImage(Assets.player_anim[animation], (int) x, (int) y, width * Handler.ZOOM, height * Handler.ZOOM, null);
+
+			if (animation == 0) {
+				g.drawImage(itemInHand.getAnimation().getCurrentFrame(), (int) x, (int) y - width * Handler.ZOOM, width * 2 * Handler.ZOOM, height * 2 * Handler.ZOOM, null);
+			} else {
+				g.drawImage(itemInHand.getAnimation().getCurrentFrame(), (int) x - width * Handler.ZOOM, (int) y - height * Handler.ZOOM, width * 2 * Handler.ZOOM, height * 2 * Handler.ZOOM, null);
+			}
 		} else if (inWater) {
-			g.drawImage(Assets.player[type.getSpriteOffset() + animation * 2 + 8 + (MapHandler.tileTick % 20) / 10], (int) x, (int) y, width * Handler.ZOOM, height * Handler.ZOOM, null);
+			g.drawImage(Assets.player[animation * 2 + 4 + (MapHandler.tileTick % 20) / 10], (int) x, (int) y, width * Handler.ZOOM, height * Handler.ZOOM, null);
 		} else {
-			g.drawImage(Assets.player[type.getSpriteOffset() + animation * 2 + animNum], (int) x, (int) y, width * Handler.ZOOM, height * Handler.ZOOM, null);
+			g.drawImage(Assets.player[animation * 2 + animNum], (int) x, (int) y, width * Handler.ZOOM, height * Handler.ZOOM, null);
 		}
 	}
 
@@ -129,7 +157,7 @@ public class Player extends Entity {
 	}
 
 	public void finishCheckingIntersection() {
-		if(t != 0) {
+		if (t != 0) {
 			inWater = true;
 			t = 0;
 		} else {

@@ -12,8 +12,6 @@ import java.util.List;
 import com.countgandi.com.Game;
 import com.countgandi.com.game.Handler;
 import com.countgandi.com.game.items.Item;
-import com.countgandi.com.game.items.armor.boots.ItemIronBoots;
-import com.countgandi.com.game.items.trinkets.ItemTrinketSpeedRing;
 import com.countgandi.com.guis.Gui;
 import com.countgandi.com.guis.inventory.slots.Slot;
 
@@ -24,13 +22,10 @@ public abstract class InventoryGui extends Gui {
 	public static Item[] inventory = new Item[row * column];
 	public static List<Slot> inventorySlots;
 
-	public InventoryGui(Handler handler) {
+	public InventoryGui() {
 		if (inventorySlots == null) {
 			initInventory();
 		}
-		
-		addItem(new ItemIronBoots(handler));
-		addItem(new ItemTrinketSpeedRing(handler));
 	}
 
 	@Override
@@ -51,11 +46,6 @@ public abstract class InventoryGui extends Gui {
 	}
 
 	protected abstract void renderChild(Graphics g);
-
-	@Override
-	public void tick() {
-
-	}
 
 	private boolean holdingThing = false;
 	private BufferedImage holdingItem;
@@ -108,7 +98,7 @@ public abstract class InventoryGui extends Gui {
 		return -1;
 	}
 
-	public void addItem(Item item) {
+	public static void addItem(Item item) {
 		boolean flag = true;
 		for (int i = 0; i < inventory.length; i++) {
 			if (inventory[i] == null) {
@@ -125,7 +115,7 @@ public abstract class InventoryGui extends Gui {
 		}
 	}
 
-	public void removeItem(Item item) {
+	public static void removeItem(Item item) {
 		boolean flag = true;
 		for (int i = 0; i < inventory.length; i++) {
 			if (item.equals(inventory[i])) {

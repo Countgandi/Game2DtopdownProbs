@@ -94,15 +94,15 @@ public class GameMenu implements Menu {
 		if (key == KeyEvent.VK_D) {
 			handler.getPlayer().right = false;
 		}
-		if(key == KeyEvent.VK_SPACE && !handler.getPlayer().attacking) {
-			handler.getPlayer().startAttack = true;
+		if(key == KeyEvent.VK_SPACE && !handler.getPlayer().usingItem) {
+			handler.getPlayer().startUsingItem = true;
 		}
 
 		if (key == KeyEvent.VK_E) {
 			if(inventory != null) {
 				closeCurrentInventory();
 			} else {
-				openInventory(new DefaultInventoryGui(handler));
+				openInventory(new DefaultInventoryGui());
 			}
 		}
 	}
