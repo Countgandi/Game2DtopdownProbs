@@ -1,14 +1,15 @@
 package com.countgandi.com.game.items.tools.picks;
 
-import com.countgandi.com.Assets;
+import java.awt.image.BufferedImage;
+
 import com.countgandi.com.game.Handler;
 import com.countgandi.com.game.items.tools.ItemTool;
 import com.countgandi.com.game.renders.Animation;
 
-public class ItemPickaxe extends ItemTool {
+public abstract class ItemPickaxe extends ItemTool {
 
-	public ItemPickaxe(Handler handler) {
-		super(new Animation(Assets.pickaxe_anim, 10, 0, 2), Assets.items[0], handler);
+	public ItemPickaxe(Animation anim, BufferedImage icon, Handler handler) {
+		super(anim, icon, handler);
 	}
 
 }

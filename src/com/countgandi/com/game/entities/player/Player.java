@@ -12,11 +12,11 @@ import com.countgandi.com.game.items.armor.chestplates.ItemIronChestplate;
 import com.countgandi.com.game.items.armor.headpiece.ItemIronHelmet;
 import com.countgandi.com.game.items.armor.leggings.ItemIronLegging;
 import com.countgandi.com.game.items.tools.ItemTool;
-import com.countgandi.com.game.items.tools.axes.ItemAxe;
-import com.countgandi.com.game.items.tools.hoes.ItemHoe;
-import com.countgandi.com.game.items.tools.maces.ItemMace;
-import com.countgandi.com.game.items.tools.picks.ItemPickaxe;
-import com.countgandi.com.game.items.tools.swords.ItemSword;
+import com.countgandi.com.game.items.tools.axes.ItemStoneAxe;
+import com.countgandi.com.game.items.tools.hoes.ItemStoneHoe;
+import com.countgandi.com.game.items.tools.maces.ItemStoneMace;
+import com.countgandi.com.game.items.tools.picks.ItemStonePickaxe;
+import com.countgandi.com.game.items.tools.swords.ItemStoneSword;
 import com.countgandi.com.game.items.trinkets.ItemTrinketSpeedRing;
 import com.countgandi.com.game.map.MapHandler;
 import com.countgandi.com.game.map.Tile;
@@ -42,11 +42,11 @@ public class Player extends Entity {
 		InventoryGui.addItem(new ItemIronChestplate(handler));
 		InventoryGui.addItem(new ItemIronHelmet(handler));
 		InventoryGui.addItem(new ItemTrinketSpeedRing(handler));
-		InventoryGui.addItem(new ItemSword(handler));
-		InventoryGui.addItem(new ItemMace(handler));
-		InventoryGui.addItem(new ItemPickaxe(handler));
-		InventoryGui.addItem(new ItemAxe(handler));
-		InventoryGui.addItem(new ItemHoe(handler));
+		InventoryGui.addItem(new ItemStoneSword(handler));
+		InventoryGui.addItem(new ItemStoneMace(handler));
+		InventoryGui.addItem(new ItemStonePickaxe(handler));
+		InventoryGui.addItem(new ItemStoneAxe(handler));
+		InventoryGui.addItem(new ItemStoneHoe(handler));
 	}
 
 	@Override
